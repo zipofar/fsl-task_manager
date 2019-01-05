@@ -8,3 +8,5 @@ runi:
 	docker-compose run --rm --service-ports web /bin/bash
 up:
 	docker-compose up
+setup-simple_form:
+	docker-compose run --rm web bash -c "rails generate simple_form:install --bootstrap"
