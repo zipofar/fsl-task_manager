@@ -7,7 +7,7 @@ services:
     volumes:
       - .:/task_manager:cached
     ports:
-      - 3000:3000
+      - 5050:3000
     volumes_from:
       - bundle_cache
     environment:
