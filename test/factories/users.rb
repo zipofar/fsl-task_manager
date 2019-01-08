@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :user do
     first_name { "David" }
     last_name { "Ivanov" }
-    password { "" }
+    password { generate :string }
     email { "test@mail.ru" }
     avatar { "MyString" }
     type { "" }
