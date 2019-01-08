@@ -10,4 +10,8 @@ class User < ApplicationRecord
   validates :email, format: { with: /.*@.*/, message: 'must contain @' }
   validates :first_name, length: { minimum: 2 }
   validates :last_name, length: { minimum: 2 }
+
+  def name
+    "#{first_name}  #{last_name}"
+  end
 end
