@@ -3,8 +3,8 @@ FactoryBot.define do
     first_name { "David" }
     last_name { "Ivanov" }
     password { generate :string }
-    email { "test@mail.ru" }
-    avatar { "MyString" }
+    email { "#{ generate :string }@mail.ru" }
+    avatar { "Avatar" }
     type { "" }
   end
 end
