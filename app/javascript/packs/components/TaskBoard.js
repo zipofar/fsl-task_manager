@@ -1,5 +1,5 @@
 import React from 'react'
-import Board from 'react-trello'
+import {Board} from 'react-trello'
 import { fetch } from './Fetch';
 import LaneHeader from './LaneHeader';
 import { Button } from 'react-bootstrap';
@@ -99,8 +99,9 @@ export default class TasksBoard extends React.Component {
   }
 
   handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
-    fetch('PUT', window.Routes.api_v1_task_path(cardId, { format: 'json' }), { task: { state: targetLaneId } })
-      .then(() => {
+    fetch('PUT', window.Routes
+        .api_v1_task_path(cardId, { format: 'json' }), { task: { state: targetLaneId } })
+        .then(() => {
         this.loadLine(sourceLaneId);
         this.loadLine(targetLaneId);
       });
