@@ -9,6 +9,7 @@
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.7.0",
+    "react-select": "^2.2.0",
     "react-trello": "^2.0.8",
     "webpacker-react": "^0.3.2"
   },
