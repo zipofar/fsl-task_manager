@@ -34,6 +34,7 @@ class Api::V1::TasksController < Api::V1::ApplicationController
 
   def update
     task = Task.find(params[:id])
+    updateState task, params[:task][:state]
     if task.update(task_params)
       render(json: task)
     else
@@ -52,5 +53,22 @@ class Api::V1::TasksController < Api::V1::ApplicationController
 
   def task_params
     params.require(:task).permit(:name, :description, :assignee_id)
+  end
+
+  def updateState(task, state)
+    case state
+    when 'in_development'
+      task.send :to_dev
+    when 'archived'
+      task.send :to_archived
+    when 'in_qa'
+      task.send :to_qa
+    when 'in_code_review'
+      task.send :to_code_review
+    when 'ready_for_release'
+      task.send :to_ready_for_release
+    when 'released'
+      task.send :to_release
+    end
   end
 end
