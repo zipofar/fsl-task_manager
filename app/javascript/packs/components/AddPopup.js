@@ -1,17 +1,18 @@
 import React from 'react';
 import { Modal, Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import { fetch } from './Fetch';
+import UserSelect from './UserSelect';
 
 export default class EditPopup extends React.Component {
   state = {
     name: '',
     description: '',
-      assignee: {
-        id: null,
-        first_name: null,
-        last_name:  null,
-        email: null
-      }
+    assignee: {
+      id: null,
+      first_name: null,
+      last_name:  null,
+      email: null
+    }
   }
 
   handleNameChange = (e) => {
@@ -20,6 +21,10 @@ export default class EditPopup extends React.Component {
 
   handleDecriptionChange = (e) => {
     this.setState({ description: e.target.value });
+  }
+
+  handleAssigneeChange = (value) => {
+    this.setState({ assignee: value });
   }
 
   handleCardAdd = () => {
@@ -66,6 +71,14 @@ export default class EditPopup extends React.Component {
                 value={this.state.description}
                 placeholder='Set the description for the task'
                 onChange={this.handleDecriptionChange}
+              />
+            </FormGroup>
+            <FormGroup controlId="formUser">
+              <ControlLabel>Assignee:</ControlLabel>
+              <UserSelect
+               id="Assignee"
+               onChange={this.handleAssigneeChange}
+               value={this.state.assignee}
               />
             </FormGroup>
           </form>

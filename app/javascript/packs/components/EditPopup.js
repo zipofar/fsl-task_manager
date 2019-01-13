@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import { fetch } from './Fetch';
+import UserSelect from './UserSelect';
 
 export default class EditPopup extends React.Component {
   state = {
@@ -76,6 +77,13 @@ export default class EditPopup extends React.Component {
       });
   }
 
+  handleAuthorChange = (value) => {
+    this.setState({ task: { ...this.state.task, author: value }});
+  }
+  handleAssigneeChange = (value) => {
+    this.setState({ task: { ...this.state.task, assignee: value }});
+  }
+
   render () {
     if (this.state.isLoading) {
       return (
@@ -121,6 +129,23 @@ export default class EditPopup extends React.Component {
                   value={this.state.task.description}
                   placeholder='Set the description for the task'
                   onChange={this.handleDecriptionChange}
+                />
+              </FormGroup>
+              <FormGroup controlId="formAuthor">
+                <ControlLabel>Author:</ControlLabel>
+                <UserSelect
+                  id="Author"
+                  isDisabled={true}
+                  value={this.state.task.author}
+                  onChange={this.handleAuthorChange}
+                />
+              </FormGroup>
+              <FormGroup controlId="formAssignee">
+                <ControlLabel>Assignee:</ControlLabel>
+                <UserSelect
+                  id="Assignee"
+                  onChange={this.handleAssigneeChange}
+                  value={this.state.task.assignee}
                 />
               </FormGroup>
             </form>
