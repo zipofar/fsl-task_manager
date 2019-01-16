@@ -68,9 +68,14 @@ gem "slim-rails"
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem "twitter-bootstrap-rails"
+gem "bootstrap-popover-rails"
 gem "jquery-rails"
 gem 'kaminari'
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'responders'
 gem 'active_model_serializers'
 
+# React Trello
+gem 'webpacker', '~> 3.5'
+gem 'webpacker-react'
+gem 'js-routes'
