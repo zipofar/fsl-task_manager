@@ -1,6 +1,6 @@
 import React from 'react'
-import {Board} from 'react-trello'
-import { fetch } from './Fetch';
+import Board from 'react-trello'
+import { fetchJson } from './Fetch';
 import LaneHeader from './LaneHeader';
 import { Button } from 'react-bootstrap';
 import AddPopup from './AddPopup';
@@ -99,9 +99,8 @@ export default class TasksBoard extends React.Component {
   }
 
   handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
-    fetch('PUT', window.Routes
-        .api_v1_task_path(cardId, { format: 'json' }), { task: { state: targetLaneId } })
-        .then(() => {
+    fetchJson('PUT', Routes.api_v1_task_path(cardId, { task: { state: targetLaneId } }))
+      .then(() => {
         this.loadLine(sourceLaneId);
         this.loadLine(targetLaneId);
       });
@@ -134,9 +133,7 @@ export default class TasksBoard extends React.Component {
   }
 
   fetchLine(state, page = 1) {
-    return fetch('GET', window.Routes.api_v1_tasks_path({ q: { state_eq: state }, page: page, per_page: 10, format: 'json' })).then(({data}) => {
-      return data;
-    })
+    return fetchJson('GET', Routes.api_v1_tasks_path({ q: { state_eq: state }, page: page, per_page: 10 })).then(({data}) => { return data })
   }
 
   render() {
