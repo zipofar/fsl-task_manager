@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import { fetch } from './Fetch';
+import { showAlert } from './ErrorsHandler';
 
 export default class EditPopup extends React.Component {
   state = {
@@ -23,25 +24,25 @@ export default class EditPopup extends React.Component {
   }
 
   handleCardAdd = () => {
-    fetch('POST', window.Routes.api_v1_tasks_path(), {
-      task: {
-        name: this.state.name,
-        description: this.state.description,
-        assignee_id: this.state.assignee.id
-      }
+    const { show, onClose } = this.props
+    const { name, description, assignee_id } = this.state
+    fetch('POST', Routes.api_v1_tasks_path(), {
+      task: { name, description, assignee_id }
     }).then( response => {
     if (response.statusText == 'Created') {
-        this.props.onClose(true);
+        onClose(true);
       }
       else {
-        alert(response.status + ' - ' + response.statusText);
+        showAlert('', response);
       }
     });
   }
 
   render () {
+    const { show, onClose } = this.props
+    const { name, description } = this.state
     return <div>
-      <Modal show={this.props.show} onHide={this.props.onClose}>
+      <Modal show={show} onHide={onClose}>
         <Modal.Header closeButton>
           <Modal.Title>
             New task
@@ -54,7 +55,7 @@ export default class EditPopup extends React.Component {
               <ControlLabel>Task name:</ControlLabel>
               <FormControl
                 type="text"
-                value={this.state.name}
+                value={name}
                 placeholder='Set the name for the task'
                 onChange={this.handleNameChange}
               />
@@ -63,7 +64,7 @@ export default class EditPopup extends React.Component {
               <ControlLabel>Task description:</ControlLabel>
               <FormControl
                 componentClass="textarea"
-                value={this.state.description}
+                value={description}
                 placeholder='Set the description for the task'
                 onChange={this.handleDecriptionChange}
               />
@@ -72,7 +73,7 @@ export default class EditPopup extends React.Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button onClick={this.props.onClose}>Close</Button>
+          <Button onClick={onClose}>Close</Button>
           <Button bsStyle="primary" onClick={this.handleCardAdd}>Save changes</Button>
         </Modal.Footer>
       </Modal>
