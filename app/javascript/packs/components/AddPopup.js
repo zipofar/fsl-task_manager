@@ -50,7 +50,7 @@ export default class EditPopup extends React.Component {
 
   render() {
     const {show, onClose} = this.props;
-    const {name, description} = this.state;
+    const {name, description, assignee} = this.state;
     return (
       <div>
         <Modal show={show} onHide={onClose}>
@@ -83,7 +83,7 @@ export default class EditPopup extends React.Component {
                 <UserSelect
                   id="Assignee"
                   onChange={this.handleAssigneeChange}
-                  value={this.state.assignee}
+                  value={assignee}
                 />
               </FormGroup>
             </form>

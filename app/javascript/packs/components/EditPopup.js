@@ -88,6 +88,7 @@ export default class EditPopup extends React.Component {
 
   render() {
     const {onClose, show} = this.props;
+    const {task} = this.state
     if (this.state.isLoading) {
       return (
         <Modal show={show} onHide={onClose}>
@@ -106,7 +107,7 @@ export default class EditPopup extends React.Component {
         <Modal show={show} onHide={onClose}>
           <Modal.Header closeButton>
             <Modal.Title>
-              Task # {this.state.task.id} [{this.state.task.state}]
+              Task # {task.id} [{task.state}]
             </Modal.Title>
           </Modal.Header>
 
@@ -116,7 +117,7 @@ export default class EditPopup extends React.Component {
                 <ControlLabel>Task name:</ControlLabel>
                 <FormControl
                   type="text"
-                  value={this.state.task.name}
+                  value={task.name}
                   placeholder="Set the name for the task"
                   onChange={this.handleNameChange}
                 />
@@ -125,7 +126,7 @@ export default class EditPopup extends React.Component {
                 <ControlLabel>Task description:</ControlLabel>
                 <FormControl
                   componentClass="textarea"
-                  value={this.state.task.description}
+                  value={task.description}
                   placeholder="Set the description for the task"
                   onChange={this.handleDecriptionChange}
                 />
@@ -135,7 +136,7 @@ export default class EditPopup extends React.Component {
                 <UserSelect
                   id="Author"
                   isDisabled={true}
-                  value={this.state.task.author}
+                  value={task.author}
                   onChange={this.handleAuthorChange}
                 />
               </FormGroup>
@@ -144,12 +145,12 @@ export default class EditPopup extends React.Component {
                 <UserSelect
                   id="Assignee"
                   onChange={this.handleAssigneeChange}
-                  value={this.state.task.assignee}
+                  value={task.assignee}
                 />
               </FormGroup>
             </form>
-            Author: {this.state.task.author.first_name}{' '}
-            {this.state.task.author.last_name}
+            Author: {task.author.first_name}{' '}
+            {task.author.last_name}
           </Modal.Body>
 
           <Modal.Footer>
