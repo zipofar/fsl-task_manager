@@ -1,31 +1,33 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import AsyncSelect from 'react-select/lib/Async';
-import { fetch } from './Fetch';
+import {fetchJson} from './Fetch';
 export default class UserSelect extends Component {
   state = {
-     inputValue: '',
-  }
-   getOptionLabel = (option) => {
-    return option.first_name+' '+option.last_name
-  }
-   getOptionValue = (option) => {
-    return option.id
-  }
-   loadOptions = (inputValue) => {
-    return fetch('GET', window.Routes.api_v1_users_path({q: { first_name_or_last_name_cont: inputValue }, format: 'json' }))
-      .then(({data}) => {
-        return data.items
-      })
-  }
-   handleInputChange = (newValue: string) => {
+    inputValue: '',
+  };
+  getOptionLabel = option => {
+    return option.first_name + ' ' + option.last_name;
+  };
+  getOptionValue = option => {
+    return option.id;
+  };
+  loadOptions = inputValue => {
+    return fetchJson(
+      'GET',
+      Routes.api_v1_users_path({q: {first_name_or_last_name_cont: inputValue}}),
+    ).then(({data}) => {
+      return data.items;
+    });
+  };
+  handleInputChange = (newValue) => {
     const inputValue = newValue.replace(/\W/g, '');
-    this.setState({ inputValue });
+    this.setState({inputValue});
     return inputValue;
-  }
-   componentDidMount() {
+  };
+  componentDidMount() {
     this.loadOptions();
   }
-   render() {
+  render() {
     return (
       <div>
         <AsyncSelect
