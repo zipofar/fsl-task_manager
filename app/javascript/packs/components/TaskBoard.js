@@ -11,15 +11,13 @@ export default class TasksBoard extends React.Component {
     addPopupShow: false,
     editPopupShow: false,
     editCardId: null,
-    board: {
-      new_task: null,
-      in_development: null,
-      in_qa: null,
-      in_code_review: null,
-      ready_for_release: null,
-      released: null,
-      archived: null,
-    },
+    new_task: null,
+    in_development: null,
+    in_qa: null,
+    in_code_review: null,
+    ready_for_release: null,
+    released: null,
+    archived: null,
   };
 
   generateLane(id, title) {
