@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import AsyncSelect from 'react-select/lib/Async';
 import {fetchJson} from './Fetch';
+import Routes from 'routes';
+import {showAlert} from './ErrorsHandler';
+
 export default class UserSelect extends Component {
   state = {
     inputValue: '',
@@ -15,11 +18,15 @@ export default class UserSelect extends Component {
     return fetchJson(
       'GET',
       Routes.api_v1_users_path({q: {first_name_or_last_name_cont: inputValue}}),
-    ).then(({data}) => {
-      return data.items;
-    });
+    )
+      .then(({data}) => {
+        return data.items;
+      })
+      .catch(error => {
+        showAlert('LOAD failed!', error);
+      });
   };
-  handleInputChange = (newValue) => {
+  handleInputChange = newValue => {
     const inputValue = newValue.replace(/\W/g, '');
     this.setState({inputValue});
     return inputValue;

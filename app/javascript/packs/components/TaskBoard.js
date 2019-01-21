@@ -5,6 +5,8 @@ import LaneHeader from './LaneHeader';
 import {Button} from 'react-bootstrap';
 import AddPopup from './AddPopup';
 import EditPopup from './EditPopup';
+import Routes from 'routes';
+import {showAlert} from './ErrorsHandler';
 
 export default class TasksBoard extends React.Component {
   state = {
@@ -140,9 +142,13 @@ export default class TasksBoard extends React.Component {
         page: page,
         per_page: 10,
       }),
-    ).then(({data}) => {
-      return data;
-    });
+    )
+      .then(({data}) => {
+        return data;
+      })
+      .catch(error => {
+        showAlert('LOADING failed!', error);
+      });
   }
 
   render() {

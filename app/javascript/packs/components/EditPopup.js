@@ -7,8 +7,10 @@ import {
   FormControl,
 } from 'react-bootstrap';
 import UserSelect from './UserSelect';
+import ModalWait from './ModalWait';
 import {fetchJson} from './Fetch';
 import {showAlert} from './ErrorsHandler';
+import Routes from 'routes';
 
 export default class EditPopup extends React.Component {
   state = {
@@ -35,10 +37,16 @@ export default class EditPopup extends React.Component {
 
   loadCard = cardId => {
     this.setState({isLoading: true});
-    fetchJson('GET', Routes.api_v1_task_path(cardId)).then(({data: task}) => {
-      this.setState({task});
-      this.setState({isLoading: false});
-    });
+    fetchJson('GET', Routes.api_v1_task_path(cardId))
+      .then(({data: task}) => {
+        this.setState({task});
+        this.setState({isLoading: false});
+      })
+      .catch(error => {
+        this.setState({isLoading: false});
+        this.props.onClose();
+        showAlert('LOADING failed!', error);
+      });
   };
 
   componentDidUpdate(prevProps) {
@@ -58,25 +66,23 @@ export default class EditPopup extends React.Component {
   handleCardEdit = () => {
     fetchJson('PUT', Routes.api_v1_task_path(this.props.cardId), {
       ...this.state.task,
-    }).then(response => {
-      if (response.statusText == 'OK') {
+    })
+      .then(response => {
         this.props.onClose(this.state.task.state);
-      } else {
-        showAlert('Update failed!', response);
-      }
-    });
+      })
+      .catch(error => {
+        showAlert('UPDATE failed!', error);
+      });
   };
 
   handleCardDelete = () => {
-    fetchJson('DELETE', Routes.api_v1_task_path(this.props.cardId)).then(
-      response => {
-        if (response.statusText == 'OK') {
-          this.props.onClose(this.state.task.state);
-        } else {
-          showAlert('DELETE failed!', response);
-        }
-      },
-    );
+    fetchJson('DELETE', Routes.api_v1_task_path(this.props.cardId))
+      .then(response => {
+        this.props.onClose(this.state.task.state);
+      })
+      .catch(error => {
+        showAlert('DELETE failed!', error);
+      });
   };
 
   handleAuthorChange = value => {
@@ -88,18 +94,12 @@ export default class EditPopup extends React.Component {
 
   render() {
     const {onClose, show} = this.props;
-    const {task} = this.state
+    const {task} = this.state;
     if (this.state.isLoading) {
       return (
-        <Modal show={show} onHide={onClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Info</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Your task is loading. Please be patient.</Modal.Body>
-          <Modal.Footer>
-            <Button onClick={onClose}>Close</Button>
-          </Modal.Footer>
-        </Modal>
+        <ModalWait show={show} onClose={onClose}>
+          Your task is loading. Please be patient.
+        </ModalWait>
       );
     }
     return (
@@ -149,8 +149,7 @@ export default class EditPopup extends React.Component {
                 />
               </FormGroup>
             </form>
-            Author: {task.author.first_name}{' '}
-            {task.author.last_name}
+            Author: {task.author.first_name} {task.author.last_name}
           </Modal.Body>
 
           <Modal.Footer>

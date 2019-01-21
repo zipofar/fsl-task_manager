@@ -1,3 +1,3 @@
-export function showAlert(message, response) {
-  alert(`${message} ${response.status} - ${response.statusText}`);
+export function showAlert(message, error) {
+  alert(`${message} ${error.message}`);
 }

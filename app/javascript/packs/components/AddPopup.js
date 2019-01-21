@@ -9,6 +9,7 @@ import {
 import {fetch} from './Fetch';
 import UserSelect from './UserSelect';
 import {showAlert} from './ErrorsHandler';
+import Routes from 'routes';
 
 export default class EditPopup extends React.Component {
   state = {
@@ -39,13 +40,13 @@ export default class EditPopup extends React.Component {
     const {name, description, assignee_id} = this.state;
     fetch('POST', Routes.api_v1_tasks_path(), {
       task: {name, description, assignee_id},
-    }).then(response => {
-      if (response.statusText == 'Created') {
+    })
+      .then(response => {
         onClose(true);
-      } else {
-        showAlert('', response);
-      }
-    });
+      })
+      .catch(error => {
+        showAlert('SAVE failed!', error);
+      });
   };
 
   render() {
