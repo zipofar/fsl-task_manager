@@ -25,12 +25,9 @@ export function fetch(method, url, body) {
 }
 
 export function fetchJson(method, url, body) {
-  const newUrl = url
-    .split('?')
-    .reduce((a, e, i) => {
+  const newUrl = url.split('?').reduce((a, e, i) => {
       return i == 0 ? [...a, `${e}.json?`] : [...a, e];
-    }, [])
-    .join('');
+    }, []).join('');
 
   return fetch(method, newUrl, body);
 }

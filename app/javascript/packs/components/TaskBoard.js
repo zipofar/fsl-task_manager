@@ -22,12 +22,25 @@ export default class TasksBoard extends React.Component {
     archived: null,
   };
 
-  generateLane(id, title) {
+  getLanesDefinition() {
+    return {
+      'new_task': {name: 'New', 'state_event': ''},
+      'in_development': {name: 'In Dev', 'state_event': 'to_dev'},
+      'in_qa': {name: 'In QA', 'state_event': 'to_qa'},
+      'in_code_review': {name: 'in CR', 'state_event': 'to_code_review'},
+      'ready_for_release': {name: 'Ready for release', 'state_event': 'to_ready_for_release'},
+      'released': {name: 'Released', 'state_event': 'to_release'},
+      'archived': {name: 'Archived', 'state_event': 'to_archived'},
+    }
+  }
+
+  generateLane(id, title, state_event) {
     const tasks = this.state[id];
 
     return {
       id,
       title,
+      state_event,
       total_count: tasks ? tasks.meta.total_count : 'None',
       cards: tasks
         ? tasks.items.map(task => {
@@ -41,32 +54,22 @@ export default class TasksBoard extends React.Component {
     };
   }
 
-  getBoard() {
-    return {
-      lanes: [
-        this.generateLane('new_task', 'New'),
-        this.generateLane('in_development', 'In Dev'),
-        this.generateLane('in_qa', 'In QA'),
-        this.generateLane('in_code_review', 'in CR'),
-        this.generateLane('ready_for_release', 'Ready for release'),
-        this.generateLane('released', 'Released'),
-        this.generateLane('archived', 'Archived'),
-      ],
-    };
+  getBoard(lanesDefinition) {
+    const lanes = Object.keys(lanesDefinition).reduce((acc, key) => {
+      const laneName = lanesDefinition[key]['name'];
+      return [...acc, this.generateLane(key, laneName)];
+    }, []);
+    return {lanes};
   }
 
-  loadLines() {
-    this.loadLine('new_task');
-    this.loadLine('in_development');
-    this.loadLine('in_qa');
-    this.loadLine('in_code_review');
-    this.loadLine('ready_for_release');
-    this.loadLine('released');
-    this.loadLine('archived');
+  loadLines(lanes) {
+    for (const key in lanes) {
+      this.loadLine(key);
+    }
   }
 
   componentDidMount() {
-    this.loadLines();
+    this.loadLines(this.getLanesDefinition());
   }
 
   loadLine(state, page = 1) {
@@ -99,9 +102,10 @@ export default class TasksBoard extends React.Component {
   };
 
   handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
+    const state_event = this.getLanesDefinition()[targetLaneId]['state_event'];
     fetchJson(
       'PUT',
-      Routes.api_v1_task_path(cardId, {task: {state: targetLaneId}}),
+      Routes.api_v1_task_path(cardId, {task:{state_event}}),
     ).then(() => {
       this.loadLine(sourceLaneId);
       this.loadLine(targetLaneId);
@@ -159,7 +163,7 @@ export default class TasksBoard extends React.Component {
         </Button>
         <h1>Your tasks</h1>
         <Board
-          data={this.getBoard()}
+          data={this.getBoard(this.getLanesDefinition())}
           onLaneScroll={this.onLaneScroll}
           customLaneHeader={<LaneHeader />}
           cardsMeta={this.state}
