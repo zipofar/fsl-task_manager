@@ -78,3 +78,4 @@ gem 'active_model_serializers'
 # React Trello
 gem 'webpacker', '~> 3.5'
 gem 'webpacker-react'
+gem 'js-routes'

@@ -17,6 +17,7 @@
 //= require_tree .
 //= require bootstrap/bootstrap-rails-tooltip
 //= require bootstrap/bootstrap-rails-popover
+//= require js-routes
 //
 $(function(){
   /* Your JavaScript goes here... */

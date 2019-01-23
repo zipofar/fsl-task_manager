@@ -34,6 +34,7 @@ class Api::V1::TasksController < Api::V1::ApplicationController
 
   def update
     task = Task.find(params[:id])
+
     if task.update(task_params)
       render(json: task)
     else
@@ -51,6 +52,6 @@ class Api::V1::TasksController < Api::V1::ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :assignee_id)
+    params.require(:task).permit(:name, :description, :author_id, :assignee_id, :state_event)
   end
 end
