@@ -1,4 +1,4 @@
-# README
+[![Build Status](https://travis-ci.org/zipofar/fsl-task_manager.svg?branch=feature%2Ftravis)](https://travis-ci.org/zipofar/fsl-task_manager)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
