@@ -1,7 +1,7 @@
 class Api::ApplicationController < ApplicationController
   include Concerns::AuthHelper
 
-  def build_meta_tasks(collection)
+  def build_meta(collection)
     {
       count: collection.count,
       total_count: collection.total_count,
@@ -11,9 +11,11 @@ class Api::ApplicationController < ApplicationController
     }
   end
 
+  def build_meta_tasks(collection)
+    build_meta(collection)
+  end
+
   def build_meta_users(collection)
-    {
-      count: collection.count,
-    }
+    build_meta(collection)
   end
 end
