@@ -79,3 +79,5 @@ gem 'active_model_serializers'
 gem 'webpacker', '~> 3.5'
 gem 'webpacker-react'
 gem 'js-routes'
+
+gem 'coveralls', require: false
