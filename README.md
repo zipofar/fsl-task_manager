@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/zipofar/fsl-task_manager.svg?branch=feature%2Ftravis)](https://travis-ci.org/zipofar/fsl-task_manager)
-
+[![Build Status](https://travis-ci.org/zipofar/fsl-task_manager.svg?branch=master)](https://travis-ci.org/zipofar/fsl-task_manager)
+[![Coverage Status](https://coveralls.io/repos/github/zipofar/fsl-task_manager/badge.svg?branch=feature%2Fcoveralls)](https://coveralls.io/github/zipofar/fsl-task_manager?branch=feature%2Fcoveralls)
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
