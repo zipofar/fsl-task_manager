@@ -18,4 +18,4 @@ before_install:
 script:
   - docker-compose run --rm web /bin/sh -c "RAILS_ENV=test  bundle exec rails test"
 after_script:
-  - docker-compose run --rm web /bin/sh -c "echo $TRAVIS_JOB_ID & echo $TRAVIS_BRANCH"
+  - docker-compose run --rm web /bin/sh -c "echo $TRAVIS_JOB_ID"
