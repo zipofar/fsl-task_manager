@@ -16,6 +16,4 @@ before_install:
   - docker-compose run --rm web /bin/sh -c "yarn install"
   - docker-compose run --rm web /bin/sh -c "RAILS_ENV=test bundle exec rails webpacker:compile"
 script:
-  - docker-compose run --rm web /bin/sh -c "RAILS_ENV=test  bundle exec rails test"
-after_script:
-  - docker-compose run --rm web /bin/sh -c "echo $TRAVIS_JOB_ID"
+  - docker-compose run --rm -e "CI=true" -e "TRAVIS=true"  web /bin/sh -c "RAILS_ENV=test  bundle exec rails test"
