@@ -9,4 +9,4 @@ build:
     RAILS_ENV: development
     SECRET_KEY_BASE: pro
 run:
-  web: bundle exec rails db:create db:migrate && bundle exec puma -C config/puma.rb
+  web: bundle exec puma -C config/puma.rb
