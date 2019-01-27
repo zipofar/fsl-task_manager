@@ -10,8 +10,7 @@ RUN apt-get update -yq \
 RUN mkdir -p /task_manager
 WORKDIR /task_manager
 COPY . /task_manager
-RUN bundle install --without development test
-#RUN bundle install
+RUN bundle install
 RUN yarn install
 
 ARG RAILS_ENV=production
