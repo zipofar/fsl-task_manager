@@ -26,5 +26,13 @@ $ make run-dev
 
 * Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+* Deployment instructions to Heroku
+
+```
+$ git add -A && git commit -m 'Some text'
+
+$ git push heroku feature/some_branch:master
+
+$ heroku run rake db:migrate
+```
 
