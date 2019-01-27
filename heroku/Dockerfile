@@ -10,6 +10,7 @@ RUN apt-get update -yq \
 RUN mkdir -p /task_manager
 WORKDIR /task_manager
 COPY . /task_manager
+COPY Gemfile Gemfile.lock ./
 RUN bundle install --jobs 3
 RUN yarn install
 RUN RAILS_ENV=production SECRET_KEY_BASE=pro bundle exec rails assets:precompile
