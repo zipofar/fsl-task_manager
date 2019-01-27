@@ -6,7 +6,7 @@ build:
   docker:
     web: Dockerfile.prod
   config:
-    RAILS_ENV: production
+    RAILS_ENV: development
     SECRET_KEY_BASE: pro
 run:
   web: bundle exec puma -C config/puma.rb
