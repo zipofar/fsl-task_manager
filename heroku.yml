@@ -6,6 +6,6 @@ build:
   docker:
     web: Dockerfile.prod
   config:
-    RAILS_ENV: development
+    RAILS_ENV: production
 run:
   web: yarn install & bundle exec puma -C config/puma.rb
