@@ -9,9 +9,4 @@ build:
     RAILS_ENV: development
     SECRET_KEY_BASE: pro
 run:
-  web: bundle exec puma -C config/puma.rb
-  worker:
-    command:
-      - bundle exec rails db:create
-      - bundle exec rails db:migrate
-    image: web
+  web: bundle exec rails db:create db:migrate && bundle exec puma -C config/puma.rb
