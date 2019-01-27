@@ -6,5 +6,4 @@ Dockerfile
 /test/*
 /tmp/*
 /storage/*
-/heroku
 *.swp
