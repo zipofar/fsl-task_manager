@@ -8,8 +8,5 @@ build:
   config:
     RAILS_ENV: production
     SECRET_KEY_BASE: pro
-release:
-  command:
-    - rake db:migrate
 run:
   web: bundle exec puma -C config/puma.rb
