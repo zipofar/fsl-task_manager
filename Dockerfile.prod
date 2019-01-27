@@ -14,12 +14,11 @@ COPY . /task_manager
 RUN bundle install
 RUN yarn install
 
-#ARG RAILS_ENV=production
-ARG RAILS_ENV=development
+ARG RAILS_ENV=production
+#ARG RAILS_ENV=development
 ARG SECRET_KEY_BASE=pro
 RUN bundle exec rails webpacker:compile
 
 #ENV RAILS_ENV=production
 #ENV SECRET_KEY_BASE=pro
-#CMD bundle exec puma -C config/puma.rb
 
