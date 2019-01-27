@@ -12,5 +12,5 @@ WORKDIR /task_manager
 COPY . /task_manager
 RUN bundle install --without development test --jobs 3
 RUN yarn install
-RUN RAILS_ENV=production SECRET_KEY_BASE=pro bundle exec rails assets:precompile
+RUN RAILS_ENV=production SECRET_KEY_BASE=pro bundle exec rails webpacker:compile
 
