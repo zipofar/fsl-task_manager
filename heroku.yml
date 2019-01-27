@@ -7,5 +7,6 @@ build:
     web: Dockerfile.prod
   config:
     RAILS_ENV: production
+    SECRET_KEY_BASE: pro
 run:
-  web: RAILS_ENV=production SECRET_KEY_BASE=pro bundle exec puma -C config/puma.rb
+  web: bundle exec puma -C config/puma.rb
