@@ -1,2 +1,9 @@
 .git*
 Dockerfile
+/node_modules/*
+/log/*
+/public/packs-test
+/test/*
+/tmp/*
+/storage/*
+*.swp
