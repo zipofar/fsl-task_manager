@@ -63,6 +63,7 @@ gem 'state_machines-activerecord'
 group :development, :test do
     gem 'factory_bot_rails'
     gem 'rubocop'
+    gem 'bullet'
 end
 gem "slim-rails"
 gem "therubyracer"
