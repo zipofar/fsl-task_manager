@@ -81,3 +81,4 @@ gem 'webpacker-react'
 gem 'js-routes'
 
 gem 'coveralls', require: false
+gem 'rollbar'
