@@ -7,3 +7,4 @@ Dockerfile
 /tmp/*
 /storage/*
 *.swp
+/config/master.key
