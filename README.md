@@ -32,3 +32,9 @@ $ git add -A && git commit -m 'Some text'
 $ git push heroku feature/some_branch:master
 $ heroku run rake db:migrate
 ```
+
+* Heroku environment variables:
+  * NEWRELIC_LICENSE_KEY
+  * ROLLBAR_ACCESS_TOKEN
+  * RAILS_ENV=production
+  * RAILS_SERVE_STATIC_FILES=1
