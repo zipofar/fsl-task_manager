@@ -36,7 +36,7 @@ class Admin::UsersController < Admin::ApplicationController
     if @user.save
       redirect_to admin_users_url
     else
-      render new_admin_user
+      render :new
     end
   end
 
